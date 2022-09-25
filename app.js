@@ -44,9 +44,10 @@ app.route("/notes")
 
 });
 
-app.route("notes/:noteTitle")
+app.route("/notes/:noteTitle")
 
 .get(function(req,res){
+    console.log(req.param.noteTitle)
     Note.findOne({title: req.params.noteTitle}, 
         function(err, note) {
             if(!err) {
@@ -72,7 +73,7 @@ app.route("notes/:noteTitle")
 })
 
 .put(function(req, res){
-    Note.UpdateOne(
+    Note.updateOne(
         {title: req.params.noteTitle},
         {title: req.body.title, content: req.body.content},
         function(err){
@@ -87,7 +88,7 @@ app.route("notes/:noteTitle")
 })
 
 .patch(function(req, res){
-    Note.UpdateOne(
+    Note.updateOne(
         {title: req.params.noteTitle},
         {$set: req.body},
         function(err){
