@@ -44,11 +44,10 @@ app.route("/notes")
 
 });
 
-app.route("/notes/:noteTitle")
+app.route("/notes/:noteId")
 
 .get(function(req,res){
-    console.log(req.param.noteTitle)
-    Note.findOne({title: req.params.noteTitle}, 
+    Note.findOne({_id: req.params.noteId}, 
         function(err, note) {
             if(!err) {
                 res.send(note);
@@ -61,7 +60,7 @@ app.route("/notes/:noteTitle")
 
 .delete(function(req, res){
     Note.deleteOne(
-        {title: req.params.noteTitle},
+        {_id: req.params.noteId},
         function(err) {
             if(!err){
                 res.send("Successfully Deleted");
@@ -74,7 +73,7 @@ app.route("/notes/:noteTitle")
 
 .put(function(req, res){
     Note.updateOne(
-        {title: req.params.noteTitle},
+        {_id: req.params.noteId},
         {title: req.body.title, content: req.body.content},
         function(err){
             if (!err) {
@@ -89,7 +88,7 @@ app.route("/notes/:noteTitle")
 
 .patch(function(req, res){
     Note.updateOne(
-        {title: req.params.noteTitle},
+        {_id: req.params.noteId},
         {$set: req.body},
         function(err){
             if (!err) {
